@@ -482,7 +482,8 @@ class MSSQLQueryBuilder(QueryBuilder):
             raise QueryException("TOP value must be an integer")
 
     def get_sql(self, *args, **kwargs):
-        kwargs['quote_char'] = '[]'
+        if not 'quote_char' in kwargs.keys():
+            kwargs['quote_char'] = '['
         return super(MSSQLQueryBuilder, self).get_sql(
             *args, groupby_alias=False, **kwargs, 
         )

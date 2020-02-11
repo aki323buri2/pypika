@@ -100,8 +100,14 @@ def resolve_is_aggregate(values):
 
 
 def format_quotes(value, quote_char):
-    if (len(quote_char) == 2):
-        return '{left}{value}{right}'.format(value=value, left=quote_char[0], right=quote_char[1])
+    pairs = {
+        '[': ']', 
+        '{': '}', 
+        '(': ')', 
+        '<': '>', 
+    }
+    if (quote_char in pairs.keys()):
+        return '{left}{value}{right}'.format(value=value, left=quote_char, right=pairs[quote_char])
     else:
         return "{quote}{value}{quote}".format(value=value, quote=quote_char or "")
 
